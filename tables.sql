@@ -52,7 +52,3 @@ CREATE TABLE [final_scores] (
 )
 GO
 
-
-
-
-
