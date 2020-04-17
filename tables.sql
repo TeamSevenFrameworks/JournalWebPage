@@ -1,7 +1,7 @@
 CREATE TABLE [students] (
 	student_id int NOT NULL,
-	name char(255) NOT NULL,
-	lastname char(255) NOT NULL,
+	name nchar(255) NOT NULL,
+	lastname nchar(255) NOT NULL,
   CONSTRAINT [PK_STUDENTS] PRIMARY KEY CLUSTERED
   (
   [student_id] ASC
@@ -11,7 +11,7 @@ CREATE TABLE [students] (
 GO
 CREATE TABLE [subjects] (
 	subject_id int NOT NULL,
-	title char(255) NOT NULL,
+	title nchar(255) NOT NULL,
   CONSTRAINT [PK_SUBJECTS] PRIMARY KEY CLUSTERED
   (
   [subject_id] ASC
@@ -21,7 +21,7 @@ CREATE TABLE [subjects] (
 GO
 CREATE TABLE [activities] (
 	act_id int NOT NULL,
-	title char(255) NOT NULL,
+	title nchar(255) NOT NULL,
   CONSTRAINT [PK_ACTIVITIES] PRIMARY KEY CLUSTERED
   (
   [act_id] ASC
