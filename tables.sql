@@ -51,3 +51,4 @@ CREATE TABLE [final_scores] (
 	score int NOT NULL
 )
 GO
+
