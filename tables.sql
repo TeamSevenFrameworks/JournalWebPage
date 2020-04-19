@@ -1,35 +1,35 @@
-CREATE TABLE [students] (
+CREATE TABLE students (
 	student_id int NOT NULL,
-	name nchar(255) NOT NULL,
-	lastname nchar(255) NOT NULL,
-  CONSTRAINT [PK_STUDENTS] PRIMARY KEY CLUSTERED
+	name char(50) NOT NULL,
+	lastname char(50) NOT NULL,
+  CONSTRAINT PK_STUDENTS PRIMARY KEY
   (
-  [student_id] ASC
-  ) WITH (IGNORE_DUP_KEY = OFF)
+  student_id 
+  )
 
-)
-GO
-CREATE TABLE [subjects] (
+);
+
+CREATE TABLE subjects (
 	subject_id int NOT NULL,
-	title nchar(255) NOT NULL,
-  CONSTRAINT [PK_SUBJECTS] PRIMARY KEY CLUSTERED
+	title char(100) NOT NULL,
+  CONSTRAINT PK_SUBJECTS PRIMARY KEY 
   (
-  [subject_id] ASC
-  ) WITH (IGNORE_DUP_KEY = OFF)
+  subject_id 
+  )
 
-)
-GO
-CREATE TABLE [activities] (
+);
+
+CREATE TABLE activities (
 	act_id int NOT NULL,
-	title nchar(255) NOT NULL,
-  CONSTRAINT [PK_ACTIVITIES] PRIMARY KEY CLUSTERED
+	title char(100) NOT NULL,
+  CONSTRAINT PK_ACTIVITIES PRIMARY KEY
   (
-  [act_id] ASC
-  ) WITH (IGNORE_DUP_KEY = OFF)
+  act_id 
+  ) 
 
-)
-GO
-CREATE TABLE [act_scores] (
+);
+
+CREATE TABLE act_scores (
 	act_score_id int NOT NULL,
 	student_id int NOT NULL,
 	subject_id int NOT NULL,
@@ -37,18 +37,16 @@ CREATE TABLE [act_scores] (
 	score int NOT NULL,
 	module int NOT NULL,
 	semester int NOT NULL,
-  CONSTRAINT [PK_ACT_SCORES] PRIMARY KEY CLUSTERED
+  CONSTRAINT PK_ACT_SCORES PRIMARY KEY 
   (
-  [act_score_id] ASC
-  ) WITH (IGNORE_DUP_KEY = OFF)
+  act_score_id 
+  ) 
 
-)
-GO
-CREATE TABLE [final_scores] (
+);
+
+CREATE TABLE final_scores (
 	score_id int NOT NULL,
 	student_id int NOT NULL,
 	subject_id int NOT NULL,
 	score int NOT NULL
-)
-GO
-
+);
