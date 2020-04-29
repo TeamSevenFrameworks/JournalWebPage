@@ -6,12 +6,16 @@
 package com.team.seven.journalwebpageapp.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Activities.findAll", query = "SELECT a FROM Activities a"),
     @NamedQuery(name = "Activities.findByActId", query = "SELECT a FROM Activities a WHERE a.actId = :actId"),
+    @NamedQuery(name = "Activities.findBySubjectId", query = "SELECT a FROM Activities a WHERE a.subjectId = :subjectId"),
+    @NamedQuery(name = "Activities.findByModuleId", query = "SELECT a FROM Activities a WHERE a.moduleId = :moduleId"),
     @NamedQuery(name = "Activities.findByTitle", query = "SELECT a FROM Activities a WHERE a.title = :title")})
 public class Activities implements Serializable {
 
@@ -38,9 +44,22 @@ public class Activities implements Serializable {
     private Integer actId;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "SUBJECT_ID")
+    private int subjectId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MODULE_ID")
+    private int moduleId;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "TITLE")
     private String title;
+    //@ManyToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "MODULE_ID")
+    //private Modules module;
+    //@OneToMany(fetch = FetchType.EAGER, mappedBy = "activities")
+    //private List<ActScores> actScores;
 
     public Activities() {
     }
@@ -52,7 +71,16 @@ public class Activities implements Serializable {
     public Activities(Integer actId, String title) {
         this.actId = actId;
         this.title = title;
+//        this.module = module;
     }
+    
+//    public Modules getModule() {
+//        return module;
+//    }
+//
+//    public void setModule(Modules module) {
+//        this.module = module;
+//    }
 
     public Integer getActId() {
         return actId;
@@ -60,6 +88,22 @@ public class Activities implements Serializable {
 
     public void setActId(Integer actId) {
         this.actId = actId;
+    }
+
+    public int getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(int subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public int getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(int moduleId) {
+        this.moduleId = moduleId;
     }
 
     public String getTitle() {

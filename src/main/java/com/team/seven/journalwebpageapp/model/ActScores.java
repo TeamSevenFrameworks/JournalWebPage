@@ -7,9 +7,13 @@ package com.team.seven.journalwebpageapp.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,11 +31,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActScores.findAll", query = "SELECT a FROM ActScores a"),
     @NamedQuery(name = "ActScores.findByActScoreId", query = "SELECT a FROM ActScores a WHERE a.actScoreId = :actScoreId"),
     @NamedQuery(name = "ActScores.findByStudentId", query = "SELECT a FROM ActScores a WHERE a.studentId = :studentId"),
-    @NamedQuery(name = "ActScores.findBySubjectId", query = "SELECT a FROM ActScores a WHERE a.subjectId = :subjectId"),
+    //@NamedQuery(name = "ActScores.findBySubjectId", query = "SELECT a FROM ActScores a WHERE a.subjectId = :subjectId"),
+    @NamedQuery(name = "ActScores.findByStudentAndActivityId", query = "SELECT acs FROM ActScores acs JOIN Activities a ON(a.actId = acs.actId) WHERE acs.studentId = :studentId AND a.actId = :actId"),
+    @NamedQuery(name = "ActScores.findByStudentAndSubjectId", query = "SELECT acs FROM ActScores acs JOIN Activities a ON(a.actId = acs.actId) WHERE acs.studentId = :studentId AND a.subjectId = :subjectId"),
     @NamedQuery(name = "ActScores.findByActId", query = "SELECT a FROM ActScores a WHERE a.actId = :actId"),
     @NamedQuery(name = "ActScores.findByScore", query = "SELECT a FROM ActScores a WHERE a.score = :score"),
-    @NamedQuery(name = "ActScores.findByModule", query = "SELECT a FROM ActScores a WHERE a.module = :module"),
-    @NamedQuery(name = "ActScores.findBySemester", query = "SELECT a FROM ActScores a WHERE a.semester = :semester")})
+    //@NamedQuery(name = "ActScores.findByModule", query = "SELECT a FROM ActScores a WHERE a.module = :module"),
+    //@NamedQuery(name = "ActScores.findBySemester", query = "SELECT a FROM ActScores a WHERE a.semester = :semester")
+})
 public class ActScores implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,24 +53,11 @@ public class ActScores implements Serializable {
     private int studentId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "SUBJECT_ID")
-    private int subjectId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ACT_ID")
-    private int actId;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "SCORE")
     private int score;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MODULE")
-    private int module;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "SEMESTER")
-    private int semester;
+    //@ManyToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "ACT_ID")
+    //private Activities activities;
 
     public ActScores() {
     }
@@ -72,14 +66,10 @@ public class ActScores implements Serializable {
         this.actScoreId = actScoreId;
     }
 
-    public ActScores(Integer actScoreId, int studentId, int subjectId, int actId, int score, int module, int semester) {
+    public ActScores(Integer actScoreId, int studentId, int score) {
         this.actScoreId = actScoreId;
         this.studentId = studentId;
-        this.subjectId = subjectId;
-        this.actId = actId;
         this.score = score;
-        this.module = module;
-        this.semester = semester;
     }
 
     public Integer getActScoreId() {
@@ -98,44 +88,12 @@ public class ActScores implements Serializable {
         this.studentId = studentId;
     }
 
-    public int getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    public int getActId() {
-        return actId;
-    }
-
-    public void setActId(int actId) {
-        this.actId = actId;
-    }
-
     public int getScore() {
         return score;
     }
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public int getModule() {
-        return module;
-    }
-
-    public void setModule(int module) {
-        this.module = module;
-    }
-
-    public int getSemester() {
-        return semester;
-    }
-
-    public void setSemester(int semester) {
-        this.semester = semester;
     }
 
     @Override

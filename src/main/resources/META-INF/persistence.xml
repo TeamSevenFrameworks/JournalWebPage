@@ -7,5 +7,7 @@
     <class>com.team.seven.journalwebpageapp.model.ActScores</class>
     <class>com.team.seven.journalwebpageapp.model.Activities</class>
     <class>com.team.seven.journalwebpageapp.model.FinalScores</class>
+    <class>com.team.seven.journalwebpageapp.model.Modules</class>
+    <class>com.team.seven.journalwebpageapp.model.Semesters</class>
   </persistence-unit>
 </persistence>
