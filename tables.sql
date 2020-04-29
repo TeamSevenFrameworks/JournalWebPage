@@ -48,5 +48,10 @@ CREATE TABLE final_scores (
 	score_id int NOT NULL,
 	student_id int NOT NULL,
 	subject_id int NOT NULL,
-	score int NOT NULL
+	score int NOT NULL.
+	CONSTRAINT PK_FINAL_SCORES PRIMARY KEY
+  (
+  score_id 
+  )
+
 );

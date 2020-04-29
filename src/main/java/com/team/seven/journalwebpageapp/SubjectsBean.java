@@ -5,9 +5,8 @@
  */
 package com.team.seven.journalwebpageapp;
 
-import com.team.seven.journalwebpageapp.model.Students;
+import com.team.seven.journalwebpageapp.model.Subjects;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
@@ -19,15 +18,15 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @ManagedBean
-public class StudentsBean {
+public class SubjectsBean {
 
     @PersistenceContext
     EntityManager em;
     
-    public StudentsBean() {
+    public SubjectsBean() {
     }
     
-    public List<Students> getList(){
-        return em.createNamedQuery("Students.findAll").getResultList();
+    public List<Subjects> getList(){
+        return em.createNamedQuery("Subjects.findAll").getResultList();
     } 
 }

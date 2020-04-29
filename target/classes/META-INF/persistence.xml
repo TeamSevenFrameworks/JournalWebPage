@@ -3,5 +3,9 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="my_persistence_unit">
     <class>com.team.seven.journalwebpageapp.model.Students</class>
+    <class>com.team.seven.journalwebpageapp.model.Subjects</class>
+    <class>com.team.seven.journalwebpageapp.model.ActScores</class>
+    <class>com.team.seven.journalwebpageapp.model.Activities</class>
+    <class>com.team.seven.journalwebpageapp.model.FinalScores</class>
   </persistence-unit>
 </persistence>

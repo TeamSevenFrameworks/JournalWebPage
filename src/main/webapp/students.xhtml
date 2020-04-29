@@ -21,7 +21,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="StudentId"/>
                                 </f:facet>
-                                <h:commandLink action="journal"> 
+                                <h:commandLink action="#{journalBean.goToSubjects(item)}"> 
                                     <h:outputText value="#{item.studentId}"/>
                                 </h:commandLink>
                             </h:column>
@@ -29,7 +29,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Name"/>
                                 </f:facet>
-                                <h:commandLink action="journal"> 
+                                <h:commandLink action="#{journalBean.goToSubjects(item)}"> 
                                     <h:outputText value="#{item.name}"/>
                                 </h:commandLink>
                             </h:column>
@@ -37,7 +37,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Lastname"/>
                                 </f:facet>
-                                <h:commandLink action="journal"> 
+                                <h:commandLink action="#{journalBean.goToSubjects(item)}"> 
                                     <h:outputText value="#{item.lastname}"/>
                                 </h:commandLink>
                             </h:column>
