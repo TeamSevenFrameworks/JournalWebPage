@@ -1,9 +1,19 @@
+html { 
+  background: url(#{request.contextPath}/resources/img/ssu.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+* {
+    margin: 0;
+}
+
 body {
-    background-color: #dddddd;
     font-size: 12px;
     font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     color: #000000;  
-    margin: 10px;
 }
 
 h1 {
