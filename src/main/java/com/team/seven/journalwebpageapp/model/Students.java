@@ -6,27 +6,31 @@
 package com.team.seven.journalwebpageapp.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author T440
+ * @author i1zol
  */
 @Entity
 @Table(name = "STUDENTS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Students.findAll", query = "SELECT s FROM Students s"),
-    @NamedQuery(name = "Students.findByStudentId", query = "SELECT s FROM Students s WHERE s.studentId = :studentId"),
+    @NamedQuery(name = "Students.findById", query = "SELECT s FROM Students s WHERE s.id = :id"),
     @NamedQuery(name = "Students.findByName", query = "SELECT s FROM Students s WHERE s.name = :name"),
     @NamedQuery(name = "Students.findByLastname", query = "SELECT s FROM Students s WHERE s.lastname = :lastname")})
 public class Students implements Serializable {
@@ -35,8 +39,8 @@ public class Students implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "STUDENT_ID")
-    private Integer studentId;
+    @Column(name = "ID")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -47,26 +51,28 @@ public class Students implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "LASTNAME")
     private String lastname;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentId")
+    private Collection<ActScores> actScoresCollection;
 
     public Students() {
     }
 
-    public Students(Integer studentId) {
-        this.studentId = studentId;
+    public Students(Integer id) {
+        this.id = id;
     }
 
-    public Students(Integer studentId, String name, String lastname) {
-        this.studentId = studentId;
+    public Students(Integer id, String name, String lastname) {
+        this.id = id;
         this.name = name;
         this.lastname = lastname;
     }
 
-    public Integer getStudentId() {
-        return studentId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -85,10 +91,19 @@ public class Students implements Serializable {
         this.lastname = lastname;
     }
 
+    @XmlTransient
+    public Collection<ActScores> getActScoresCollection() {
+        return actScoresCollection;
+    }
+
+    public void setActScoresCollection(Collection<ActScores> actScoresCollection) {
+        this.actScoresCollection = actScoresCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (studentId != null ? studentId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -99,7 +114,7 @@ public class Students implements Serializable {
             return false;
         }
         Students other = (Students) object;
-        if ((this.studentId == null && other.studentId != null) || (this.studentId != null && !this.studentId.equals(other.studentId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -107,7 +122,7 @@ public class Students implements Serializable {
 
     @Override
     public String toString() {
-        return "com.team.seven.journalwebpageapp.model.Students[ studentId=" + studentId + " ]";
+        return "com.team.seven.journalwebpageapp.model.Students[ id=" + id + " ]";
     }
     
 }

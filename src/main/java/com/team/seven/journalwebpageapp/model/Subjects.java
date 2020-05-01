@@ -6,27 +6,31 @@
 package com.team.seven.journalwebpageapp.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author T440
+ * @author i1zol
  */
 @Entity
 @Table(name = "SUBJECTS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Subjects.findAll", query = "SELECT s FROM Subjects s"),
-    @NamedQuery(name = "Subjects.findBySubjectId", query = "SELECT s FROM Subjects s WHERE s.subjectId = :subjectId"),
+    @NamedQuery(name = "Subjects.findById", query = "SELECT s FROM Subjects s WHERE s.id = :id"),
     @NamedQuery(name = "Subjects.findByTitle", query = "SELECT s FROM Subjects s WHERE s.title = :title")})
 public class Subjects implements Serializable {
 
@@ -34,32 +38,34 @@ public class Subjects implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "SUBJECT_ID")
-    private Integer subjectId;
+    @Column(name = "ID")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "TITLE")
     private String title;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId")
+    private Collection<Activities> activitiesCollection;
 
     public Subjects() {
     }
 
-    public Subjects(Integer subjectId) {
-        this.subjectId = subjectId;
+    public Subjects(Integer id) {
+        this.id = id;
     }
 
-    public Subjects(Integer subjectId, String title) {
-        this.subjectId = subjectId;
+    public Subjects(Integer id, String title) {
+        this.id = id;
         this.title = title;
     }
 
-    public Integer getSubjectId() {
-        return subjectId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSubjectId(Integer subjectId) {
-        this.subjectId = subjectId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -70,10 +76,19 @@ public class Subjects implements Serializable {
         this.title = title;
     }
 
+    @XmlTransient
+    public Collection<Activities> getActivitiesCollection() {
+        return activitiesCollection;
+    }
+
+    public void setActivitiesCollection(Collection<Activities> activitiesCollection) {
+        this.activitiesCollection = activitiesCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (subjectId != null ? subjectId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -84,7 +99,7 @@ public class Subjects implements Serializable {
             return false;
         }
         Subjects other = (Subjects) object;
-        if ((this.subjectId == null && other.subjectId != null) || (this.subjectId != null && !this.subjectId.equals(other.subjectId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -92,7 +107,7 @@ public class Subjects implements Serializable {
 
     @Override
     public String toString() {
-        return "com.team.seven.journalwebpageapp.model.Subjects[ subjectId=" + subjectId + " ]";
+        return "com.team.seven.journalwebpageapp.model.Subjects[ id=" + id + " ]";
     }
     
 }

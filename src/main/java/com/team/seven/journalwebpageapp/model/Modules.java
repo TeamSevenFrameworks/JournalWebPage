@@ -6,20 +6,22 @@
 package com.team.seven.journalwebpageapp.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,8 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Modules.findAll", query = "SELECT m FROM Modules m"),
-    @NamedQuery(name = "Modules.findByModuleId", query = "SELECT m FROM Modules m WHERE m.moduleId = :moduleId"),
-    @NamedQuery(name = "Modules.findBySemesterId", query = "SELECT m FROM Modules m WHERE m.semesterId = :semesterId"),
+    @NamedQuery(name = "Modules.findById", query = "SELECT m FROM Modules m WHERE m.id = :id"),
     @NamedQuery(name = "Modules.findByTitle", query = "SELECT m FROM Modules m WHERE m.title = :title")})
 public class Modules implements Serializable {
 
@@ -39,57 +40,37 @@ public class Modules implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "MODULE_ID")
-    private Integer moduleId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "SEMESTER_ID")
-    private int semesterId;
+    @Column(name = "ID")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "TITLE")
     private String title;
-    //@ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "SEMESTER_ID")
-    //private Semesters semester;
+    @JoinColumn(name = "SEMESTER_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Semesters semesterId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "moduleId")
+    private Collection<Activities> activitiesCollection;
 
     public Modules() {
     }
 
-    public Modules(Integer moduleId) {
-        this.moduleId = moduleId;
+    public Modules(Integer id) {
+        this.id = id;
     }
 
-    public Modules(Integer moduleId, int semesterId, String title) {
-        this.moduleId = moduleId;
-        this.semesterId = semesterId;
+    public Modules(Integer id, String title) {
+        this.id = id;
         this.title = title;
-//        this.semester = semester;
-    }
-    
-//    public Semesters getSemester() {
-//        return semester;
-//    }
-//
-//    public void setActivity(Semesters semester) {
-//        this.semester = semester;
-//    }
-
-    public Integer getModuleId() {
-        return moduleId;
     }
 
-    public void setModuleId(Integer moduleId) {
-        this.moduleId = moduleId;
+    public Integer getId() {
+        return id;
     }
 
-    public int getSemesterId() {
-        return semesterId;
-    }
-
-    public void setSemesterId(int semesterId) {
-        this.semesterId = semesterId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -100,10 +81,27 @@ public class Modules implements Serializable {
         this.title = title;
     }
 
+    public Semesters getSemesterId() {
+        return semesterId;
+    }
+
+    public void setSemesterId(Semesters semesterId) {
+        this.semesterId = semesterId;
+    }
+
+    @XmlTransient
+    public Collection<Activities> getActivitiesCollection() {
+        return activitiesCollection;
+    }
+
+    public void setActivitiesCollection(Collection<Activities> activitiesCollection) {
+        this.activitiesCollection = activitiesCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (moduleId != null ? moduleId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -114,7 +112,7 @@ public class Modules implements Serializable {
             return false;
         }
         Modules other = (Modules) object;
-        if ((this.moduleId == null && other.moduleId != null) || (this.moduleId != null && !this.moduleId.equals(other.moduleId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -122,7 +120,7 @@ public class Modules implements Serializable {
 
     @Override
     public String toString() {
-        return "com.team.seven.journalwebpageapp.model.Modules[ moduleId=" + moduleId + " ]";
+        return "com.team.seven.journalwebpageapp.model.Modules[ id=" + id + " ]";
     }
     
 }

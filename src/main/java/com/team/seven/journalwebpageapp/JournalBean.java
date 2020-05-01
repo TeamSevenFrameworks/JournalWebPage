@@ -6,9 +6,7 @@
 package com.team.seven.journalwebpageapp;
 
 import com.team.seven.journalwebpageapp.model.ActScores;
-import com.team.seven.journalwebpageapp.model.Activities;
 import com.team.seven.journalwebpageapp.model.Modules;
-import com.team.seven.journalwebpageapp.model.Semesters;
 import com.team.seven.journalwebpageapp.model.Students;
 import com.team.seven.journalwebpageapp.model.Subjects;
 import java.io.Serializable;
@@ -64,15 +62,10 @@ public class JournalBean implements Serializable{
     }
     
     public List<ActScores> getScoreList(){
-        return em.createNamedQuery("ActScores.findByStudentAndSubjectId").setParameter("studentId", student.getStudentId()).setParameter("subjectId", subject.getSubjectId()).getResultList();
+        return em.createNamedQuery("ActScores.findByStudentAndSubjectId").setParameter("student_id", student.getId()).setParameter("subject_id", subject.getId()).getResultList();
     }
     
-    public String getModuleById(int moduleId){
-        return ((Modules)em.createNamedQuery("Modules.findByModuleId").setParameter("moduleId", moduleId).getSingleResult()).getTitle();
-    }
-    
-    public String getSemesterByModuleId(int moduleId){
-        return ((Modules)em.createNamedQuery("Modules.findByModuleId").setParameter("moduleId", moduleId).getSingleResult()).getTitle();
-        //return ((Modules)em.createNamedQuery("Modules.findByModuleId").setParameter("moduleId", moduleId).getSingleResult()).getSemester().getTitle();
+    public Modules getModuleById(int moduleId){
+        return ((Modules)em.createNamedQuery("Modules.findById").setParameter("id", moduleId).getSingleResult());
     }
 }

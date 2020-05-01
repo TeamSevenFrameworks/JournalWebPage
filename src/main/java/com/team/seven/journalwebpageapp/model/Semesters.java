@@ -6,16 +6,20 @@
 package com.team.seven.journalwebpageapp.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Semesters.findAll", query = "SELECT s FROM Semesters s"),
-    @NamedQuery(name = "Semesters.findBySemesterId", query = "SELECT s FROM Semesters s WHERE s.semesterId = :semesterId"),
+    @NamedQuery(name = "Semesters.findById", query = "SELECT s FROM Semesters s WHERE s.id = :id"),
     @NamedQuery(name = "Semesters.findByTitle", query = "SELECT s FROM Semesters s WHERE s.title = :title")})
 public class Semesters implements Serializable {
 
@@ -34,32 +38,34 @@ public class Semesters implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "SEMESTER_ID")
-    private Integer semesterId;
+    @Column(name = "ID")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "TITLE")
     private String title;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semesterId")
+    private Collection<Modules> modulesCollection;
 
     public Semesters() {
     }
 
-    public Semesters(Integer semesterId) {
-        this.semesterId = semesterId;
+    public Semesters(Integer id) {
+        this.id = id;
     }
 
-    public Semesters(Integer semesterId, String title) {
-        this.semesterId = semesterId;
+    public Semesters(Integer id, String title) {
+        this.id = id;
         this.title = title;
     }
 
-    public Integer getSemesterId() {
-        return semesterId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSemesterId(Integer semesterId) {
-        this.semesterId = semesterId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -70,10 +76,19 @@ public class Semesters implements Serializable {
         this.title = title;
     }
 
+    @XmlTransient
+    public Collection<Modules> getModulesCollection() {
+        return modulesCollection;
+    }
+
+    public void setModulesCollection(Collection<Modules> modulesCollection) {
+        this.modulesCollection = modulesCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (semesterId != null ? semesterId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -84,7 +99,7 @@ public class Semesters implements Serializable {
             return false;
         }
         Semesters other = (Semesters) object;
-        if ((this.semesterId == null && other.semesterId != null) || (this.semesterId != null && !this.semesterId.equals(other.semesterId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -92,7 +107,7 @@ public class Semesters implements Serializable {
 
     @Override
     public String toString() {
-        return "com.team.seven.journalwebpageapp.model.Semesters[ semesterId=" + semesterId + " ]";
+        return "com.team.seven.journalwebpageapp.model.Semesters[ id=" + id + " ]";
     }
     
 }
