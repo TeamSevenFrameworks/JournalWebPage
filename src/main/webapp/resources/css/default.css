@@ -27,3 +27,24 @@ a:link:hover, a:visited:hover  {
   font-weight : bold;
   text-decoration : underline;
 }
+
+.button {
+  background-color: #036fab; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  margin: 5px 8px;
+  margin-left: 0;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button:hover {
+    background-color: #99ccff;
+}
+
+.button.selected-button {
+    background-color: #99ccff;
+}

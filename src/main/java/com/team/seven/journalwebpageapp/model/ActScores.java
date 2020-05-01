@@ -24,10 +24,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "ACT_SCORES")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "ActScores.getSemesters", query = "SELECT DISTINCT a.semester FROM ActScores a"),
+    @NamedQuery(name = "ActScores.getModules", query = "SELECT DISTINCT a.module FROM ActScores a"),
     @NamedQuery(name = "ActScores.findAll", query = "SELECT a FROM ActScores a"),
     @NamedQuery(name = "ActScores.findByActScoreId", query = "SELECT a FROM ActScores a WHERE a.actScoreId = :actScoreId"),
     @NamedQuery(name = "ActScores.findByStudentId", query = "SELECT a FROM ActScores a WHERE a.studentId = :studentId"),
     @NamedQuery(name = "ActScores.findBySubjectId", query = "SELECT a FROM ActScores a WHERE a.subjectId = :subjectId"),
+    @NamedQuery(name = "ActScores.findByStudentAndSubjectId", query = "SELECT a FROM ActScores a WHERE a.studentId = :studentId and a.subjectId = :subjectId"),
+    @NamedQuery(name = "ActScores.findByStudentSubjectSemesterModule", query = "SELECT a FROM ActScores a WHERE a.studentId = :studentId and a.subjectId = :subjectId and a.module = :module and a.semester = :semester"),
     @NamedQuery(name = "ActScores.findByActId", query = "SELECT a FROM ActScores a WHERE a.actId = :actId"),
     @NamedQuery(name = "ActScores.findByScore", query = "SELECT a FROM ActScores a WHERE a.score = :score"),
     @NamedQuery(name = "ActScores.findByModule", query = "SELECT a FROM ActScores a WHERE a.module = :module"),
