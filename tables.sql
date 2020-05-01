@@ -1,57 +1,70 @@
 CREATE TABLE students (
-	student_id int NOT NULL,
+	id int NOT NULL,
 	name char(50) NOT NULL,
 	lastname char(50) NOT NULL,
   CONSTRAINT PK_STUDENTS PRIMARY KEY
   (
-  student_id 
+  id 
   )
 
 );
 
 CREATE TABLE subjects (
-	subject_id int NOT NULL,
+	id int NOT NULL,
 	title char(100) NOT NULL,
   CONSTRAINT PK_SUBJECTS PRIMARY KEY 
   (
-  subject_id 
+  id 
   )
+
+);
+
+CREATE TABLE semesters (
+	id int NOT NULL,
+	title char(100) NOT NULL,
+  CONSTRAINT PK_SEMESTERS PRIMARY KEY
+  (
+  id 
+  ) 
+
+);
+
+CREATE TABLE modules (
+	id int NOT NULL,
+	semester_id int NOT NULL,
+	title char(100) NOT NULL,
+  CONSTRAINT PK_MODULES PRIMARY KEY
+  (
+  id 
+  ),
+  FOREIGN KEY (semester_id)  REFERENCES semesters (id)
 
 );
 
 CREATE TABLE activities (
-	act_id int NOT NULL,
+	id int NOT NULL,
+	subject_id int NOT NULL,
+	module_id int NOT NULL,
 	title char(100) NOT NULL,
   CONSTRAINT PK_ACTIVITIES PRIMARY KEY
   (
-  act_id 
-  ) 
+  id 
+  ),
+  FOREIGN KEY (subject_id)  REFERENCES subjects (id),
+  FOREIGN KEY (module_id)  REFERENCES modules (id)
 
 );
 
 CREATE TABLE act_scores (
-	act_score_id int NOT NULL,
+	id int NOT NULL,
 	student_id int NOT NULL,
-	subject_id int NOT NULL,
-	act_id int NOT NULL,
+	activity_id int NOT NULL,
 	score int NOT NULL,
-	module int NOT NULL,
-	semester int NOT NULL,
   CONSTRAINT PK_ACT_SCORES PRIMARY KEY 
   (
-  act_score_id 
-  ) 
-
-);
-
-CREATE TABLE final_scores (
-	score_id int NOT NULL,
-	student_id int NOT NULL,
-	subject_id int NOT NULL,
-	score int NOT NULL.
-	CONSTRAINT PK_FINAL_SCORES PRIMARY KEY
-  (
-  score_id 
-  )
+  id 
+  ),
+  FOREIGN KEY (student_id)  REFERENCES students (id),
+  FOREIGN KEY (activity_id)  REFERENCES activities (id)
 
 );
