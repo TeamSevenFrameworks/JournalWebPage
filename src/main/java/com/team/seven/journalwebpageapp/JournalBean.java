@@ -31,6 +31,9 @@ public class JournalBean implements Serializable{
     
     private Students student;
     private Subjects subject;
+    
+    private int currentSemester = 1;
+    private int currentModule = 1;
 
     public Subjects getSubject() {
         return subject;
@@ -58,6 +61,8 @@ public class JournalBean implements Serializable{
     
     public String goToJournal(Subjects subject){
         this.setSubject(subject);
+        this.currentModule = 1;
+        this.currentSemester = 1;
         return "journal";
     }
     
@@ -68,4 +73,18 @@ public class JournalBean implements Serializable{
     public Modules getModuleById(int moduleId){
         return ((Modules)em.createNamedQuery("Modules.findById").setParameter("id", moduleId).getSingleResult());
     }
+    
+    public List<Integer> getModuleList(){
+        return em.createNamedQuery("ActScores.getModules").getResultList();
+    }
+
+    public void setCurrentSemester(int currentSemester) {
+        this.currentSemester = currentSemester;
+    }
+
+    public void setCurrentModule(int currentModule) {
+        this.currentModule = currentModule;
+    }
+    
+    
 }

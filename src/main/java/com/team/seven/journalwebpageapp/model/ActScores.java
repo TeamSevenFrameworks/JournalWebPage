@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "ACT_SCORES")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "ActScores.getSemesters", query = "SELECT DISTINCT a.semester FROM ActScores a"),
+    @NamedQuery(name = "ActScores.getModules", query = "SELECT DISTINCT a.module FROM ActScores a"),
     @NamedQuery(name = "ActScores.findAll", query = "SELECT a FROM ActScores a"),
     @NamedQuery(name = "ActScores.findById", query = "SELECT a FROM ActScores a WHERE a.id = :id"),
     @NamedQuery(name = "ActScores.findByStudentAndSubjectId", query = "SELECT a FROM ActScores a JOIN a.studentId st JOIN a.activityId act JOIN act.subjectId sub WHERE st.id = :student_id AND sub.id = :subject_id"),

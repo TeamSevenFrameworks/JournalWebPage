@@ -9,13 +9,16 @@
         <h:outputStylesheet name="css/default.css"/>
         <h:outputStylesheet name="css/cssLayout.css"/>
         <h:outputStylesheet name="css/table.css"/>
-        <title>Facelets Template</title>
+        <h:outputScript name="js/jquery.js" target="head" />
+        <h:outputScript name="js/scripts.js" target="head" />
+        
+        <title>Journal</title>
     </h:head>
 
     <h:body>
 
         <div id="top">
-            <ui:insert name="top">Top</ui:insert>
+            <ui:insert name="top"><p><h:graphicImage value="resources/img/logo.png" /> </p></ui:insert>
         </div>
 
         <div id="content" class="center_content">
@@ -23,7 +26,7 @@
         </div>
 
         <div id="bottom">
-            <ui:insert name="bottom">Copyright @ Team 7 Frameworks, 2020</ui:insert>
+            <ui:insert name="bottom"><p>Copyright @ Team 7 Frameworks, 2020</p></ui:insert>
         </div>
 
     </h:body>

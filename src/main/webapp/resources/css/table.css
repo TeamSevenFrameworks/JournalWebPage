@@ -1,8 +1,10 @@
 table.studentsTable {
-  background-color: #dddddd;
-  width: 500px;
+  background-color: none;
+  width: 100%;
   text-align: left;
   border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 table.studentsTable tr td:first-child {
@@ -15,15 +17,11 @@ table.studentsTable td, table.studentsTable th {
 table.studentsTable tbody td, table.studentsTable tbody td a {
   font-size: 12px;
   font-weight: bold;
-  color: gray;
-}
-
-table.studentsTable tbody tr:nth-child(even) a {
-    color:#FFFFFF;
+  color: #FFFFFF;
 }
 
 table.studentsTable tbody td a:hover {
-  color: #83C582;
+  color: #99ccff;
 }
 
 table.studentsTable tr:nth-child(even) {
