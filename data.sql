@@ -181,4 +181,3 @@ INSERT INTO act_scores (id, student_id, activity_id, score)
 VALUES (49,5,9,18);
 INSERT INTO act_scores (id, student_id, activity_id, score)
 VALUES (50,5,10,0);
-INSERT INTO act_scores (id, student_id, activity_id, score)
