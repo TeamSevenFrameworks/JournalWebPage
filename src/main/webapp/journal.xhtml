@@ -29,7 +29,7 @@
                 <f:view>
                     <h:form>
                         <ui:repeat value="#{journalBean.semesterList}" var="item">
-                            <h:outputLabel value="#{item} semester" class="button semester" >
+                            <h:outputLabel value="#{item.title}" class="button semester" >
                                 <f:ajax event="click" render="actscores" listener="#{journalBean.setCurrentSemester(item)}"/>
                             </h:outputLabel>
                         </ui:repeat>
@@ -39,7 +39,7 @@
                     <h:form>
 
                         <ui:repeat value="#{journalBean.moduleList}" var="item">
-                            <h:outputLabel value="#{item} module" class="button module">
+                            <h:outputLabel value="#{item.title}"  class="button module">
                                 <f:ajax event="click" render="actscores" listener="#{journalBean.setCurrentModule(item)}"/>
                             </h:outputLabel>
                         </ui:repeat>
@@ -54,7 +54,7 @@
                                     <h:outputText value="Act"/>
                                 </f:facet>
                                 <h:commandLink action="#"> 
-                                    <h:outputText value="#{item.id}"/>
+                                    <h:outputText value="#{item.key.title}"/>
                                 </h:commandLink>
                             </h:column>
                             <h:column>
@@ -62,31 +62,14 @@
                                     <h:outputText value="Score"/>
                                 </f:facet>
                                 <h:commandLink action="#"> 
-                                    <h:outputText value="#{item.score}"/>
+                                    <h:outputText value="#{item.value.score}"/>
                                 </h:commandLink>
                             </h:column>
-                            <!--<h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Module"/>
-                                </f:facet>
-                                <h:commandLink action="#"> 
-                                    <h:outputText value="#{journalBean.getModuleById(item.getActivityId().moduleId.getId()).getTitle()}"/>
-                                </h:commandLink>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Semester"/>
-                                </f:facet>
-                                <h:commandLink action="#"> 
-                                    <h:outputText value="#{journalBean.getModuleById(item.getActivityId().moduleId.getId()).getSemesterId().getTitle()}"/>
-                                </h:commandLink>
-                            </h:column>-->
                         </h:dataTable>
                     </h:form>
                 </f:view>
-
+                <h2 class="result-final">Final score: <h:outputText value="#{journalBean.finalScore}"/></h2>
             </ui:define>
-
         </ui:composition>
 
     </body>
