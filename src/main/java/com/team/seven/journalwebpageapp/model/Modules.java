@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,14 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author i1zol
  */
 @Entity
-@Table(name = "STUDENTS")
+@Table(name = "MODULES")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Students.findAll", query = "SELECT s FROM Students s"),
-    @NamedQuery(name = "Students.findById", query = "SELECT s FROM Students s WHERE s.id = :id"),
-    @NamedQuery(name = "Students.findByName", query = "SELECT s FROM Students s WHERE s.name = :name"),
-    @NamedQuery(name = "Students.findByLastname", query = "SELECT s FROM Students s WHERE s.lastname = :lastname")})
-public class Students implements Serializable {
+    @NamedQuery(name = "Modules.findAll", query = "SELECT m FROM Modules m"),
+    @NamedQuery(name = "Modules.findById", query = "SELECT m FROM Modules m WHERE m.id = :id"),
+    @NamedQuery(name = "Modules.findByTitle", query = "SELECT m FROM Modules m WHERE m.title = :title")})
+public class Modules implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,28 +44,25 @@ public class Students implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "NAME")
-    private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "LASTNAME")
-    private String lastname;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentId")
-    private Collection<ActScores> actScoresCollection;
+    @Size(min = 1, max = 100)
+    @Column(name = "TITLE")
+    private String title;
+    @JoinColumn(name = "SEMESTER_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Semesters semesterId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "moduleId")
+    private Collection<Activities> activitiesCollection;
 
-    public Students() {
+    public Modules() {
     }
 
-    public Students(Integer id) {
+    public Modules(Integer id) {
         this.id = id;
     }
 
-    public Students(Integer id, String name, String lastname) {
+    public Modules(Integer id, String title) {
         this.id = id;
-        this.name = name;
-        this.lastname = lastname;
+        this.title = title;
     }
 
     public Integer getId() {
@@ -75,29 +73,29 @@ public class Students implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getLastname() {
-        return lastname;
+    public Semesters getSemesterId() {
+        return semesterId;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setSemesterId(Semesters semesterId) {
+        this.semesterId = semesterId;
     }
 
     @XmlTransient
-    public Collection<ActScores> getActScoresCollection() {
-        return actScoresCollection;
+    public Collection<Activities> getActivitiesCollection() {
+        return activitiesCollection;
     }
 
-    public void setActScoresCollection(Collection<ActScores> actScoresCollection) {
-        this.actScoresCollection = actScoresCollection;
+    public void setActivitiesCollection(Collection<Activities> activitiesCollection) {
+        this.activitiesCollection = activitiesCollection;
     }
 
     @Override
@@ -110,10 +108,10 @@ public class Students implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Students)) {
+        if (!(object instanceof Modules)) {
             return false;
         }
-        Students other = (Students) object;
+        Modules other = (Modules) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -122,7 +120,7 @@ public class Students implements Serializable {
 
     @Override
     public String toString() {
-        return "com.team.seven.journalwebpageapp.model.Students[ id=" + id + " ]";
+        return "com.team.seven.journalwebpageapp.model.Modules[ id=" + id + " ]";
     }
     
 }

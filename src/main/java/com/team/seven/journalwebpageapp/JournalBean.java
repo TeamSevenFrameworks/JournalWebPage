@@ -6,6 +6,7 @@
 package com.team.seven.journalwebpageapp;
 
 import com.team.seven.journalwebpageapp.model.ActScores;
+import com.team.seven.journalwebpageapp.model.Modules;
 import com.team.seven.journalwebpageapp.model.Students;
 import com.team.seven.journalwebpageapp.model.Subjects;
 import java.io.Serializable;
@@ -66,16 +67,11 @@ public class JournalBean implements Serializable{
     }
     
     public List<ActScores> getScoreList(){
-        return em.createNamedQuery("ActScores.findByStudentSubjectSemesterModule").
-                setParameter("studentId", student.getStudentId()).
-                setParameter("subjectId", subject.getSubjectId()).
-                setParameter("module", this.currentModule).
-                setParameter("semester", this.currentSemester).
-                getResultList();
+        return em.createNamedQuery("ActScores.findByStudentAndSubjectId").setParameter("student_id", student.getId()).setParameter("subject_id", subject.getId()).getResultList();
     }
     
-    public List<Integer> getSemesterList(){
-        return em.createNamedQuery("ActScores.getSemesters").getResultList();
+    public Modules getModuleById(int moduleId){
+        return ((Modules)em.createNamedQuery("Modules.findById").setParameter("id", moduleId).getSingleResult());
     }
     
     public List<Integer> getModuleList(){

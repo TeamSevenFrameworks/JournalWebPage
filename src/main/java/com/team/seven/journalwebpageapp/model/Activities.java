@@ -6,27 +6,33 @@
 package com.team.seven.journalwebpageapp.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author T440
+ * @author i1zol
  */
 @Entity
 @Table(name = "ACTIVITIES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Activities.findAll", query = "SELECT a FROM Activities a"),
-    @NamedQuery(name = "Activities.findByActId", query = "SELECT a FROM Activities a WHERE a.actId = :actId"),
+    @NamedQuery(name = "Activities.findById", query = "SELECT a FROM Activities a WHERE a.id = :id"),
     @NamedQuery(name = "Activities.findByTitle", query = "SELECT a FROM Activities a WHERE a.title = :title")})
 public class Activities implements Serializable {
 
@@ -34,32 +40,40 @@ public class Activities implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ACT_ID")
-    private Integer actId;
+    @Column(name = "ID")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "TITLE")
     private String title;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activityId")
+    private Collection<ActScores> actScoresCollection;
+    @JoinColumn(name = "MODULE_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Modules moduleId;
+    @JoinColumn(name = "SUBJECT_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Subjects subjectId;
 
     public Activities() {
     }
 
-    public Activities(Integer actId) {
-        this.actId = actId;
+    public Activities(Integer id) {
+        this.id = id;
     }
 
-    public Activities(Integer actId, String title) {
-        this.actId = actId;
+    public Activities(Integer id, String title) {
+        this.id = id;
         this.title = title;
     }
 
-    public Integer getActId() {
-        return actId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setActId(Integer actId) {
-        this.actId = actId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -70,10 +84,35 @@ public class Activities implements Serializable {
         this.title = title;
     }
 
+    @XmlTransient
+    public Collection<ActScores> getActScoresCollection() {
+        return actScoresCollection;
+    }
+
+    public void setActScoresCollection(Collection<ActScores> actScoresCollection) {
+        this.actScoresCollection = actScoresCollection;
+    }
+
+    public Modules getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(Modules moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    public Subjects getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Subjects subjectId) {
+        this.subjectId = subjectId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (actId != null ? actId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -84,7 +123,7 @@ public class Activities implements Serializable {
             return false;
         }
         Activities other = (Activities) object;
-        if ((this.actId == null && other.actId != null) || (this.actId != null && !this.actId.equals(other.actId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -92,7 +131,7 @@ public class Activities implements Serializable {
 
     @Override
     public String toString() {
-        return "com.team.seven.journalwebpageapp.model.Activities[ actId=" + actId + " ]";
+        return "com.team.seven.journalwebpageapp.model.Activities[ id=" + id + " ]";
     }
     
 }

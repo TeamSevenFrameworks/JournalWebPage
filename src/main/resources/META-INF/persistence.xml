@@ -6,7 +6,8 @@
       <jta-data-source>jdbc/MSSQL</jta-data-source>
     <class>com.team.seven.journalwebpageapp.model.ActScores</class>
     <class>com.team.seven.journalwebpageapp.model.Activities</class>
-    <class>com.team.seven.journalwebpageapp.model.FinalScores</class>
+    <class>com.team.seven.journalwebpageapp.model.Modules</class>
+    <class>com.team.seven.journalwebpageapp.model.Semesters</class>
     <class>com.team.seven.journalwebpageapp.model.Students</class>
     <class>com.team.seven.journalwebpageapp.model.Subjects</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>

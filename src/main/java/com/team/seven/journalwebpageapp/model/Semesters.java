@@ -26,14 +26,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author i1zol
  */
 @Entity
-@Table(name = "STUDENTS")
+@Table(name = "SEMESTERS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Students.findAll", query = "SELECT s FROM Students s"),
-    @NamedQuery(name = "Students.findById", query = "SELECT s FROM Students s WHERE s.id = :id"),
-    @NamedQuery(name = "Students.findByName", query = "SELECT s FROM Students s WHERE s.name = :name"),
-    @NamedQuery(name = "Students.findByLastname", query = "SELECT s FROM Students s WHERE s.lastname = :lastname")})
-public class Students implements Serializable {
+    @NamedQuery(name = "Semesters.findAll", query = "SELECT s FROM Semesters s"),
+    @NamedQuery(name = "Semesters.findById", query = "SELECT s FROM Semesters s WHERE s.id = :id"),
+    @NamedQuery(name = "Semesters.findByTitle", query = "SELECT s FROM Semesters s WHERE s.title = :title")})
+public class Semesters implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,28 +42,22 @@ public class Students implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "NAME")
-    private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "LASTNAME")
-    private String lastname;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentId")
-    private Collection<ActScores> actScoresCollection;
+    @Size(min = 1, max = 100)
+    @Column(name = "TITLE")
+    private String title;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semesterId")
+    private Collection<Modules> modulesCollection;
 
-    public Students() {
+    public Semesters() {
     }
 
-    public Students(Integer id) {
+    public Semesters(Integer id) {
         this.id = id;
     }
 
-    public Students(Integer id, String name, String lastname) {
+    public Semesters(Integer id, String title) {
         this.id = id;
-        this.name = name;
-        this.lastname = lastname;
+        this.title = title;
     }
 
     public Integer getId() {
@@ -75,29 +68,21 @@ public class Students implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @XmlTransient
-    public Collection<ActScores> getActScoresCollection() {
-        return actScoresCollection;
+    public Collection<Modules> getModulesCollection() {
+        return modulesCollection;
     }
 
-    public void setActScoresCollection(Collection<ActScores> actScoresCollection) {
-        this.actScoresCollection = actScoresCollection;
+    public void setModulesCollection(Collection<Modules> modulesCollection) {
+        this.modulesCollection = modulesCollection;
     }
 
     @Override
@@ -110,10 +95,10 @@ public class Students implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Students)) {
+        if (!(object instanceof Semesters)) {
             return false;
         }
-        Students other = (Students) object;
+        Semesters other = (Semesters) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -122,7 +107,7 @@ public class Students implements Serializable {
 
     @Override
     public String toString() {
-        return "com.team.seven.journalwebpageapp.model.Students[ id=" + id + " ]";
+        return "com.team.seven.journalwebpageapp.model.Semesters[ id=" + id + " ]";
     }
     
 }
