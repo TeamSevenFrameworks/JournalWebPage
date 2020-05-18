@@ -26,12 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "ACT_SCORES")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ActScores.getSemesters", query = "SELECT DISTINCT a.semester FROM ActScores a"),
-    @NamedQuery(name = "ActScores.getModules", query = "SELECT DISTINCT a.module FROM ActScores a"),
     @NamedQuery(name = "ActScores.findAll", query = "SELECT a FROM ActScores a"),
     @NamedQuery(name = "ActScores.findById", query = "SELECT a FROM ActScores a WHERE a.id = :id"),
-    @NamedQuery(name = "ActScores.findByStudentAndSubjectId", query = "SELECT a FROM ActScores a JOIN a.studentId st JOIN a.activityId act JOIN act.subjectId sub WHERE st.id = :student_id AND sub.id = :subject_id"),
-    //@NamedQuery(name = "ActScores.findByStudentAndSubjectId", query = "SELECT a.id, a.activityId, a.score, a.studentId FROM ActScores a JOIN Students st on (a.student_id = st.id) JOIN Activities act on (a.activity_id = act.id) WHERE st.id = :student_id AND act.subject_id = :subject_id"),
+    @NamedQuery(name = "ActScores.findByStudentAndActivitytId", query = "SELECT a FROM ActScores a WHERE a.studentId = :studentId AND a.activityId = :activityId"),
     @NamedQuery(name = "ActScores.findByScore", query = "SELECT a FROM ActScores a WHERE a.score = :score")})
 public class ActScores implements Serializable {
 

@@ -1,9 +1,9 @@
 html { 
-  background: url(#{request.contextPath}/resources/img/ssu.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url(#{request.contextPath}/resources/img/ssu.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 * {
@@ -27,28 +27,28 @@ h1 {
 }
 
 a:link, a:visited {
-  color: #045491;
-  font-weight : bold;
-  text-decoration: none;
+    color: #045491;
+    font-weight : bold;
+    text-decoration: none;
 }
 
 a:link:hover, a:visited:hover  {
-  color: #045491;
-  font-weight : bold;
-  text-decoration : underline;
+    color: #045491;
+    font-weight : bold;
+    text-decoration : underline;
 }
 
 .button {
-  background-color: #036fab; /* Green */
-  border: none;
-  color: white;
-  padding: 5px 8px;
-  margin: 5px 8px;
-  margin-left: 0;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+    background-color: #036fab; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 8px;
+    margin: 5px 8px;
+    margin-left: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
 
 .button:hover {
@@ -57,4 +57,9 @@ a:link:hover, a:visited:hover  {
 
 .button.selected-button {
     background-color: #99ccff;
+}
+
+.result-final {
+    color:white;
+    margin-top: 5px;
 }
