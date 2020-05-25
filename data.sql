@@ -90,9 +90,9 @@ VALUES (16, 4, 2, 'task 4');
 
 --act_scores
 INSERT INTO act_scores (id, student_id, activity_id, score)
-VALUES (1,1,1,10);
+VALUES (1,1,1,7);
 INSERT INTO act_scores (id, student_id, activity_id, score)
-VALUES (2,1,2,15);
+VALUES (2,1,2,6);
 INSERT INTO act_scores (id, student_id, activity_id, score)
 VALUES (3,1,3,20);
 INSERT INTO act_scores (id, student_id, activity_id, score)
@@ -151,4 +151,3 @@ INSERT INTO act_scores (id, student_id, activity_id, score)
 VALUES (29,2,14,32);
 INSERT INTO act_scores (id, student_id, activity_id, score)
 VALUES (30,2,15,21);
-
