@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -68,12 +69,15 @@ public class JournalBean implements Serializable {
 
     public String goToJournal(Subjects subject) {
         this.setSubject(subject);
-        this.currentModule = (Modules) em.createNamedQuery("Modules.findById")
-                .setParameter("id", 1)
-                .getSingleResult();
-        this.currentSemester = (Semesters) em.createNamedQuery("Semesters.findById")
-                .setParameter("id", 1)
-                .getSingleResult();
+        
+        this.currentSemester = ((List<Semesters>)( em.createNamedQuery("Semesters.findBySubjectId")
+                .setParameter("id", this.subject.getId())
+                .getResultList())).get(0);
+        
+        this.currentModule = ((List<Modules>)(em.createNamedQuery("Modules.findBySemesterIdAndSubject")
+                .setParameter("semesterId", this.currentSemester)
+                .setParameter("subId", this.subject.getId())
+                .getResultList())).get(0);
         
         int fScore = 0;
         
@@ -105,7 +109,7 @@ public class JournalBean implements Serializable {
                 .setParameter("subjectId", this.subject)
                 .getResultList();
         
-        Map<Activities, ActScores> scoreList = new HashMap<>();
+        Map<Activities, ActScores> scoreList = new TreeMap<>();
         
         for(Activities act: activities) {
             List<ActScores> actScores = em.createNamedQuery("ActScores.findByStudentAndActivitytId")
@@ -130,22 +134,25 @@ public class JournalBean implements Serializable {
                 .getSingleResult());
     }
 
-    public List<Integer> getSemesterList() {
-        return em.createNamedQuery("Semesters.findAll").getResultList();
+    public List<Semesters> getSemesterList() {
+        return em.createNamedQuery("Semesters.findBySubjectId")
+                .setParameter("id", this.subject.getId())
+                .getResultList();
     }
 
-    public List<Integer> getModuleList() {
-        return em.createNamedQuery("Modules.findBySemesterId")
+    public List<Modules> getModuleList() {
+        return em.createNamedQuery("Modules.findBySemesterIdAndSubject")
                 .setParameter("semesterId", this.currentSemester)
+                .setParameter("subId", this.subject.getId())
                 .getResultList();
     }
 
     public void setCurrentSemester(Semesters currentSemester) {
         this.currentSemester = currentSemester;
-        this.currentModule = (Modules)em.createNamedQuery("Modules.findBySemesterIdAndTitle")
+        this.currentModule = (((List<Modules>)(em.createNamedQuery("Modules.findBySemesterIdAndSubject")
                 .setParameter("semesterId", this.currentSemester)
-                .setParameter("title", this.currentModule.getTitle())
-                .getSingleResult();
+                .setParameter("subId", this.subject.getId())
+                .getResultList()))).get(0);
     }
 
     public void setCurrentModule(Modules currentModule) {

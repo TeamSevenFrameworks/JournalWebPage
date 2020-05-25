@@ -21,22 +21,22 @@ table.studentsTable tbody td, table.studentsTable tbody td a {
 }
 
 table.studentsTable tbody td a:hover {
-  color: #99ccff;
+  color: #3CA573;
 }
 
 table.studentsTable tr:nth-child(even) {
-  background: #036fab;
+  background: darkcyan;
 }
 table.studentsTable thead {
-  background: #036fab;
-  border-bottom: 10px solid #036fab;
+  background: darkcyan;
+  border-bottom: 10px solid darkcyan;
 }
 table.studentsTable thead th {
   font-size: 15px;
   font-weight: bold;
   color: #FFFFFF;
   text-align: left;
-  border-left: 2px solid #036fab;
+  border-left: 2px solid darkcyan;
 }
 table.studentsTable thead th:first-child {
   border-left: none;

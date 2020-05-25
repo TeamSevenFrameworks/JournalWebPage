@@ -6,6 +6,7 @@ html {
     background-size: cover;
 }
 
+
 * {
     margin: 0;
 }
@@ -38,11 +39,12 @@ a:link:hover, a:visited:hover  {
     text-decoration : underline;
 }
 
-.button {
-    background-color: #036fab; /* Green */
+.button, .subject-view {
+    background-color: #dddddd; /* Green */
+    opacity: 0.7;
     border: none;
-    color: white;
-    padding: 5px 8px;
+    color: darkcyan;
+    padding: 5px 25px;
     margin: 5px 8px;
     margin-left: 0;
     text-align: center;
@@ -51,15 +53,28 @@ a:link:hover, a:visited:hover  {
     font-size: 16px;
 }
 
+.subject-view {
+    padding: 5px 8px;
+}
+
 .button:hover {
     background-color: #99ccff;
+    opacity: 1;
+    border: 2px solid black;
 }
 
 .button.selected-button {
-    background-color: #99ccff;
+    background-color: #ABABAB;
+    opacity: 1;
+    border: 2px solid black;
 }
 
 .result-final {
-    color:white;
+    color:darkcyan;
     margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    text-decoration: none;
 }

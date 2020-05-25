@@ -14,61 +14,57 @@
             <ui:define name="top">
                 <h:graphicImage name="img/logo.png" height="35" width="35" id="logo"/>
                 <p>
-                    Journal (<h:outputText value="#{journalBean.student.name}"/>
-                <h:outputText value=" "/>
-                <h:outputText value="#{journalBean.student.lastname}"/>,
-                <h:outputText value=" "/>
-                <h:outputText value="#{journalBean.subject.title}"/>
-                )
+                    Journal
                 </p>
+                <div id="topContent">
+                    <p><h:outputText value="#{journalBean.student.name}"/>
+                        <h:outputText value=" "/>
+                        <h:outputText value="#{journalBean.student.lastname}"/>
+                    </p>
+                </div>
             </ui:define>
 
 
 
-            <ui:define name="content">
-                <f:view>
-                    <h:form>
-                        <ui:repeat value="#{journalBean.semesterList}" var="item">
-                            <h:outputLabel value="#{item.title}" class="button semester" >
-                                <f:ajax event="click" render="actscores" listener="#{journalBean.setCurrentSemester(item)}"/>
-                            </h:outputLabel>
-                        </ui:repeat>
-                    </h:form>
-                </f:view>
-                <f:view>
-                    <h:form>
+            <ui:define name="content">      
+                <h:outputLabel value="#{journalBean.subject.title}" class="subject-view" />
+                <div class="scores-div">
+                    
+                    <h2 class="scores-h">Your scores</h2>
+                    <f:view>
+                        <h:form>
+                            <ui:repeat value="#{journalBean.semesterList}" var="item">
+                                <h:outputLabel value="#{item.title}" class="button semester" >
+                                    <f:ajax event="click" render="actscores modules-semesters" listener="#{journalBean.setCurrentSemester(item)}"/>
+                                </h:outputLabel>
+                            </ui:repeat>
+                        </h:form>
+                    </f:view>
+                    <f:view>
+                        <h:form id="modules-semesters" class="modules-semesters">
 
-                        <ui:repeat value="#{journalBean.moduleList}" var="item">
-                            <h:outputLabel value="#{item.title}"  class="button module">
-                                <f:ajax event="click" render="actscores" listener="#{journalBean.setCurrentModule(item)}"/>
-                            </h:outputLabel>
-                        </ui:repeat>
-                    </h:form>
-                </f:view>
+                            <ui:repeat value="#{journalBean.moduleList}" var="item">
+                                <h:outputLabel value="#{item.title}"  class="button module">
+                                    <f:ajax event="click" render="actscores" listener="#{journalBean.setCurrentModule(item)}"/>
+                                </h:outputLabel>
+                            </ui:repeat>
+                        </h:form>
+                    </f:view>
 
-                <f:view>
-                    <h:form id="actscores">
-                        <h:dataTable value="#{journalBean.scoreList}" var="item" class="studentsTable">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Act"/>
-                                </f:facet>
-                                <h:commandLink action="#"> 
+                    <f:view>
+                        <h:form id="actscores">
+                            <h:dataTable value="#{journalBean.scoreList}" var="item" class="scoresTable">
+                                <h:column>
                                     <h:outputText value="#{item.key.title}"/>
-                                </h:commandLink>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Score"/>
-                                </f:facet>
-                                <h:commandLink action="#"> 
+                                </h:column>
+                                <h:column>
                                     <h:outputText value="#{item.value.score}"/>
-                                </h:commandLink>
-                            </h:column>
-                        </h:dataTable>
-                    </h:form>
-                </f:view>
-                <h2 class="result-final">Final score: <h:outputText value="#{journalBean.finalScore}"/></h2>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </f:view>
+                    <h2 class="result-final">Final score: <h:outputText value="#{journalBean.finalScore}"/></h2>
+                </div>
             </ui:define>
         </ui:composition>
 

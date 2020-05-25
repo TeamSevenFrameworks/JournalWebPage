@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Activities.findAll", query = "SELECT a FROM Activities a"),
     @NamedQuery(name = "Activities.findById", query = "SELECT a FROM Activities a WHERE a.id = :id"),
     @NamedQuery(name = "Activities.findBySubjectId", query = "SELECT a FROM Activities a WHERE a.subjectId = :subjectId"),
-    @NamedQuery(name = "Activities.findByModuleAndSubjectId", query = "SELECT a FROM Activities a WHERE a.moduleId = :moduleId and a.subjectId = :subjectId"),
+    @NamedQuery(name = "Activities.findByModuleAndSubjectId", query = "SELECT a FROM Activities a WHERE a.moduleId = :moduleId and a.subjectId = :subjectId ORDER BY a.id"),
     @NamedQuery(name = "Activities.findByTitle", query = "SELECT a FROM Activities a WHERE a.title = :title")})
-public class Activities implements Serializable {
+public class Activities implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -134,6 +134,11 @@ public class Activities implements Serializable {
     @Override
     public String toString() {
         return "com.team.seven.journalwebpageapp.model.Activities[ id=" + id + " ]";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.id - ((Activities)o).id;
     }
     
 }

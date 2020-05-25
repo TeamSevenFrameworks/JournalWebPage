@@ -1,0 +1,48 @@
+table.scoresTable {
+  background-color: white;
+  width: 100%;
+  border: 1px solid black;
+  font-size: 16pt;
+}
+
+table.scoresTable tr td:first-child,table.scoresTable tr th:first-child {
+  text-align: left;
+  color:black;
+  font-style: italic;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+table.scoresTable tr td, table.scoresTable tr th {
+  text-align: right;
+  color:darkcyan;
+  font-style: italic;
+  padding: 5px;
+  padding-right: 10px;
+}
+
+.scores-div {
+    width: 40%;
+    margin-left: 50px;
+}
+
+.scores-h {
+    color: darkcyan;
+    font-size: 20pt;
+    font-weight: bold;
+    margin-bottom: 10px;
+        
+}
+
+#topContent {
+  color: white;
+  text-align: right;
+  background: none;
+  font-size: 10pt;
+  position: absolute;
+  right: 0;
+  top:5px;
+}
+#topContent p {
+    margin-right: 20px;
+}
